@@ -1,7 +1,7 @@
 ZipCLI - Flexible ZIP Archiver
 ==============================
 
-Version: 1.0.0
+Version: 1.1.0
 Build Date: 2025-06-13
 
 Description:
