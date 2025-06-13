@@ -37,3 +37,8 @@ pytest-cov>=5.0.0
 # tabulate for inventory display, colorama for enhanced CLI output (esp. on Windows)
 tabulate>=0.9.0
 colorama>=0.4.6
+
+# ==============================
+# Documentation
+# ==============================
+sphinx>=7.2.6
