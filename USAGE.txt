@@ -1,30 +1,30 @@
-🔐 SecureCLI Usage Instructions
+📦 ZipCLI Usage Instructions (Updated: 6/13/2025 MM)
 
 Run the tool from the command line using Python or a bundled .exe.
-    secure-cli-v1.10.x.exe [--options]
+
+    zip-cli-v1.0.0.exe <folder> [--options]
 
 Available Options:
 
-    --account <name>       Generate and save a password for the given account.
-                           Will create a new config based on default if missing.
+    --filter <pattern>         Include files matching one or more glob patterns (e.g. "*.txt").
 
-    --update               Only generate new password if config is newer than saved file.
+    --exclude <pattern>        Exclude files matching one or more glob patterns.
 
-    --recover              Recover missing config from an existing password file.
+    --include <pattern>        Same as --filter (takes precedence if both are used).
 
-    --report               Generate a summary report of all accounts and their last password.
+    --date-format <format>     Customize the timestamp format used in the ZIP filename.
+                               Default: "%Y%m%dT%H%M"
 
-    --verbose              Include extra details in the report.
+    --inventory                Print a list of all files included in the archive.
+
+    --backup-location <path>   Folder where the .zip file will be saved. Defaults to current directory.
 
 Examples:
 
-    secure-cli-v1.10.x.exe --account gmail
+    zip-cli-v1.0.0.exe myfolder
 
-    secure-cli-v1.10.x.exe --account github --update
+    zip-cli-v1.0.0.exe data --filter "*.csv" --exclude "secret*"
 
-    secure-cli-v1.10.x.exe --recover --account gmail
+    zip-cli-v1.0.0.exe reports --include "*.pdf" --date-format "%Y-%m-%d" --inventory
 
-    secure-cli-v1.10.x.exe --report --verbose
-
-    secure-cli-v1.10.x.exe  # Runs the quick password generator with no arguments an
-                            returns a single password.
+    zip-cli-v1.0.0.exe logs --filter "*.log" --backup-location P:\Backups

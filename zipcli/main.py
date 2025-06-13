@@ -32,7 +32,18 @@ from typing import List
 
 
 def should_include(file_path: Path, includes: List[str], excludes: List[str]) -> bool:
-    """Determine whether a file should be included based on filters."""
+    """
+    Determine whether a file should be included in the ZIP archive
+    based on inclusion and exclusion patterns.
+
+    Args:
+        file_path (Path): Path to the file to evaluate.
+        includes (List[str]): List of glob patterns to include.
+        excludes (List[str]): List of glob patterns to exclude.
+
+    Returns:
+        bool: True if the file should be included, False otherwise.
+    """
     name = file_path.name
     if includes and not any(fnmatch.fnmatch(name, pat) for pat in includes):
         return False
@@ -42,6 +53,18 @@ def should_include(file_path: Path, includes: List[str], excludes: List[str]) ->
 
 
 def collect_files(base_dir: Path, includes: List[str], excludes: List[str]) -> List[Path]:
+    """
+    Recursively collect all files in a directory that match the given
+    include and exclude filters.
+
+    Args:
+        base_dir (Path): The root directory to scan for files.
+        includes (List[str]): Patterns of files to include.
+        excludes (List[str]): Patterns of files to exclude.
+
+    Returns:
+        List[Path]: List of paths to include in the ZIP archive.
+    """
     return [
         f for f in base_dir.rglob("*")
         if f.is_file() and should_include(f.relative_to(base_dir), includes, excludes)
@@ -56,6 +79,18 @@ def create_zip_archive(
     inventory: bool,
     backup_location: Path
 ):
+    """
+    Create a ZIP archive of files from the given source directory, applying
+    filtering rules and naming conventions.
+
+    Args:
+        source_dir (Path): Directory to zip.
+        includes (List[str]): File patterns to include.
+        excludes (List[str]): File patterns to exclude.
+        date_format (str): Format for the timestamp to include in the ZIP filename.
+        inventory (bool): Whether to print the list of included files.
+        backup_location (Path): Output directory for the ZIP file. Defaults to current directory.
+    """
     timestamp = datetime.now().strftime(date_format)
     zip_name = f"{source_dir.name}_{timestamp}.zip"
     output_path = (backup_location or Path.cwd()) / zip_name
@@ -73,6 +108,10 @@ def create_zip_archive(
 
 
 def main():
+    """
+    Parse command-line arguments and create a ZIP archive
+    based on the provided options.
+    """
     parser = argparse.ArgumentParser(description="Zip CLI Utility")
     parser.add_argument("folder", nargs="?", default=".", help="Folder to zip (default: current directory)")
     parser.add_argument("--filter", nargs="*", default=[], help="Glob patterns to include (e.g. *.txt *.csv)")

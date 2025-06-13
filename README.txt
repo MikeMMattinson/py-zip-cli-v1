@@ -1,78 +1,77 @@
-SecureCLI - Secure Password Generator
-=====================================
+ZipCLI - Flexible ZIP Archiver
+==============================
 
-Version: 1.10.3
-Build Date: 2025-05-30
+Version: 1.0.0
+Build Date: 2025-06-13
 
 Description:
 ------------
-SecureCLI is a command-line utility that helps you generate secure, customizable passwords for different accounts. It supports per-account configuration, password history, and safety checks like repeated character limits and excluded symbols.
+ZipCLI is a command-line utility that creates ZIP archives from folders with flexible include/exclude filtering. It supports custom date-stamped filenames, inventory listing, and configurable backup locations.
 
 Installation:
 -------------
-No installation required. Just unzip the downloaded file and double-click `secure-cli-v1.10.0.exe` in the folder, or run it from the command line.
+No installation required. Just unzip the downloaded file and double-click `zip-cli-v1.0.0.exe` in the folder, or run it from the command line.
 
 Usage:
 ------
 <!-- USAGE_START -->
-🔐 SecureCLI Usage Instructions
+📦 ZipCLI Usage Instructions (Updated: 6/13/2025 MM)
 
 Run the tool from the command line using Python or a bundled .exe.
-    secure-cli-v1.10.x.exe [--options]
+
+    zip-cli-v1.0.0.exe <folder> [--options]
 
 Available Options:
 
-    --account <name>       Generate and save a password for the given account.
-                           Will create a new config based on default if missing.
+    --filter <pattern>         Include files matching one or more glob patterns (e.g. "*.txt").
 
-    --update               Only generate new password if config is newer than saved file.
+    --exclude <pattern>        Exclude files matching one or more glob patterns.
 
-    --recover              Recover missing config from an existing password file.
+    --include <pattern>        Same as --filter (takes precedence if both are used).
 
-    --report               Generate a summary report of all accounts and their last password.
+    --date-format <format>     Customize the timestamp format used in the ZIP filename.
+                               Default: "%Y%m%dT%H%M"
 
-    --verbose              Include extra details in the report.
+    --inventory                Print a list of all files included in the archive.
+
+    --backup-location <path>   Folder where the .zip file will be saved. Defaults to current directory.
 
 Examples:
 
-    secure-cli-v1.10.x.exe --account gmail
+    zip-cli-v1.0.0.exe myfolder
 
-    secure-cli-v1.10.x.exe --account github --update
+    zip-cli-v1.0.0.exe data --filter "*.csv" --exclude "secret*"
 
-    secure-cli-v1.10.x.exe --recover --account gmail
+    zip-cli-v1.0.0.exe reports --include "*.pdf" --date-format "%Y-%m-%d" --inventory
 
-    secure-cli-v1.10.x.exe --report --verbose
-
-    secure-cli-v1.10.x.exe  # Runs the quick password generator with no arguments an
-                            returns a single password.
+    zip-cli-v1.0.0.exe logs --filter "*.log" --backup-location P:\Backups
 <!-- USAGE_END -->
 
+ZIP Output:
+-----------
+Each run creates a ZIP file with a name like:
+    foldername_20250613T1245.zip
 
-Password File Output:
----------------------
-Each account has its own text file saved in the `passwords/` folder.
+The file is saved either in the current working directory or the provided `--backup-location`.
 
-Format includes:
-- Account name
-- Metadata (username, email, notes)
-- Manually added notes section
-- Password generation history with timestamp
+Documentation:
+--------------
+Generated Sphinx documentation is available online:
+https://mikemmattinson.github.io/py-zip-cli-v1/
+
+Or build it locally by running:
+    sphinx-build -b html docs/source docs/
 
 Configuration:
 --------------
-To customize settings, edit the `config/default.config` or create a new one like `config/github.config`.
+No external config required. All options are passed as CLI arguments.
 
-Each config can define:
-- min_length, max_length
-- contain_upper, contain_lower, contain_number, contain_special
-- exclude_special_characters
-- max_repeating
-- username, email, etc.
+Advanced users can edit `main.py` or integrate ZipCLI as a module in their own Python scripts.
 
 Support:
 --------
 For more information, visit:
-https://github.com/MikeMMattinson/py-secure-cli-v1
+https://github.com/MikeMMattinson/py-zip-cli-v1
 
 To report a bug, please open an issue on GitHub.
 
