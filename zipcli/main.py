@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Script:     main.py
-Version:    1.0.0
 Author:     Mike & ChatGPT
 
 Purpose:
