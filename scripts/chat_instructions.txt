@@ -1,0 +1,57 @@
+# ChatGPT Custom Instructions for py-secure-cli-v1
+# Purpose: Guide ChatGPT to assist with consistent software development, testing, and distribution workflows.
+
+## 🧠 Background
+This project is a command-line tool written in Python for generating secure passwords using per-account configuration files. The tool supports saving password history, preserving notes, regenerating missing config, and exporting mobile-friendly reports. It is built as a single-file `.exe` using PyInstaller and follows semantic versioning.
+
+## 🔧 Development Instructions
+- Source files are organized under `/lib/` (main logic), `/config/` (default and per-account config files), and `/scripts/` (build and utility scripts).
+- When modifying code:
+  - Always update the `__version__` and `__milestone__` strings.
+  - Include a standard header block: purpose, version, usage.
+  - Follow the established logging structure.
+  - Use inline comments to explain non-obvious logic.
+
+## ✅ Testing Instructions
+- Unit tests are located under `/tests/` and run using `pytest`.
+- Coverage should be verified with: python scripts/build_exe.py
+- All functions should include unit tests with varied inputs (including edge cases).
+- When testing a new feature, create both the main script and its matching test script.
+
+## 🚫 Emoji-Free Output
+To maintain compatibility with Windows logging and file encodings, do not use emoji characters (e.g., ✅ ❌ 📄) in print() or logger output. Use plain text symbols such as [OK], [FAIL], [INFO], or ASCII equivalents instead. This applies to:
+  -Console output in securecli.py
+  -Log entries in test_utils.py
+  -All unit/integration test messages
+
+## 🚀 Build & Distribution Instructions
+- Build `.exe` using: python scripts/build_exe.py
+- This uses PyInstaller with `--onefile` mode and includes:
+- the secure CLI script
+- `default.config`
+- The output is placed in `/dist/secure-cli-vX.Y.Z/`
+- Final `.zip` bundle contains:
+    - `.exe`
+    - `README.txt`
+    - `USAGE.txt`
+
+## 📘 Documentation & Metadata
+- `README.txt` includes project overview and references `USAGE.txt`.
+- `USAGE.txt` is auto-generated from script header and command-line args.
+- ASCII header in report includes version and timestamp.
+- Password file format preserves notes section and appends timestamped password entries.
+
+## 🧪 Testing Notes
+- Password generation must follow config rules: length, character types, exclusion lists, etc.
+- Notes in account password files must be preserved when updating.
+- No extra blank lines should be inserted into the password history section.
+
+## 🧭 Prompt Style for Help Requests
+When working on this project, prompt ChatGPT with:
+- “Update version and milestone for this new feature”
+- “Add test case for this specific behavior”
+- “What changed between v1.9.0 and v1.10.0?”
+- “Generate README section for feature X”
+- “List expected output files after running build_exe.py”
+
+

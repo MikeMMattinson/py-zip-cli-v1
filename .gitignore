@@ -1,0 +1,72 @@
+# ───────────────────────────────
+# Python Bytecode & Caches
+# ───────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ───────────────────────────────
+# Virtual Environment
+# ───────────────────────────────
+.venv/
+env/
+ENV/
+
+# ───────────────────────────────
+# VS Code settings
+# ───────────────────────────────
+.vscode/
+
+# ───────────────────────────────
+# Logs and Reports
+# ───────────────────────────────
+#*.log
+*.out
+*.err
+
+
+# You can allow specific sample files and exclude others
+data/results.csv
+data/simulation_*.csv
+
+# ───────────────────────────────
+# Test and Coverage Artifacts
+# ───────────────────────────────
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+.cache
+pytest_cache/
+
+# ───────────────────────────────
+# Ignore tests
+# ───────────────────────────────
+.test-alpha/
+.test-beta/
+.test-final/
+
+
+
+# ───────────────────────────────
+# Jupyter Notebooks (if any)
+# ───────────────────────────────
+.ipynb_checkpoints/
+
+# ───────────────────────────────
+# OS Files
+# ───────────────────────────────
+.DS_Store
+Thumbs.db
+
+
+# PyInstaller artifacts
+dist/
+build/
+*.spec
+*.exe
+*.zip
+
+
+

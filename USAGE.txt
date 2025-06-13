@@ -1,0 +1,30 @@
+🔐 SecureCLI Usage Instructions
+
+Run the tool from the command line using Python or a bundled .exe.
+    secure-cli-v1.10.x.exe [--options]
+
+Available Options:
+
+    --account <name>       Generate and save a password for the given account.
+                           Will create a new config based on default if missing.
+
+    --update               Only generate new password if config is newer than saved file.
+
+    --recover              Recover missing config from an existing password file.
+
+    --report               Generate a summary report of all accounts and their last password.
+
+    --verbose              Include extra details in the report.
+
+Examples:
+
+    secure-cli-v1.10.x.exe --account gmail
+
+    secure-cli-v1.10.x.exe --account github --update
+
+    secure-cli-v1.10.x.exe --recover --account gmail
+
+    secure-cli-v1.10.x.exe --report --verbose
+
+    secure-cli-v1.10.x.exe  # Runs the quick password generator with no arguments an
+                            returns a single password.
