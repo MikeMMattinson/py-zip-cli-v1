@@ -67,7 +67,18 @@
 <div class="viewcode-block" id="should_include">
 <a class="viewcode-back" href="../../main.html#zipcli.main.should_include">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">should_include</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">includes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">excludes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine whether a file should be included based on filters.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine whether a file should be included in the ZIP archive</span>
+<span class="sd">    based on inclusion and exclusion patterns.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        file_path (Path): Path to the file to evaluate.</span>
+<span class="sd">        includes (List[str]): List of glob patterns to include.</span>
+<span class="sd">        excludes (List[str]): List of glob patterns to exclude.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if the file should be included, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">name</span>
     <span class="k">if</span> <span class="n">includes</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatch</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span> <span class="k">for</span> <span class="n">pat</span> <span class="ow">in</span> <span class="n">includes</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span>
@@ -80,6 +91,18 @@
 <div class="viewcode-block" id="collect_files">
 <a class="viewcode-back" href="../../main.html#zipcli.main.collect_files">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">collect_files</span><span class="p">(</span><span class="n">base_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">includes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">excludes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recursively collect all files in a directory that match the given</span>
+<span class="sd">    include and exclude filters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        base_dir (Path): The root directory to scan for files.</span>
+<span class="sd">        includes (List[str]): Patterns of files to include.</span>
+<span class="sd">        excludes (List[str]): Patterns of files to exclude.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List[Path]: List of paths to include in the ZIP archive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[</span>
         <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">base_dir</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">should_include</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">base_dir</span><span class="p">),</span> <span class="n">includes</span><span class="p">,</span> <span class="n">excludes</span><span class="p">)</span>
@@ -97,6 +120,18 @@
     <span class="n">inventory</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">backup_location</span><span class="p">:</span> <span class="n">Path</span>
 <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a ZIP archive of files from the given source directory, applying</span>
+<span class="sd">    filtering rules and naming conventions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        source_dir (Path): Directory to zip.</span>
+<span class="sd">        includes (List[str]): File patterns to include.</span>
+<span class="sd">        excludes (List[str]): File patterns to exclude.</span>
+<span class="sd">        date_format (str): Format for the timestamp to include in the ZIP filename.</span>
+<span class="sd">        inventory (bool): Whether to print the list of included files.</span>
+<span class="sd">        backup_location (Path): Output directory for the ZIP file. Defaults to current directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">date_format</span><span class="p">)</span>
     <span class="n">zip_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">source_dir</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.zip&quot;</span>
     <span class="n">output_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">backup_location</span> <span class="ow">or</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span> <span class="o">/</span> <span class="n">zip_name</span>
@@ -117,6 +152,10 @@
 <div class="viewcode-block" id="main">
 <a class="viewcode-back" href="../../main.html#zipcli.main.main">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse command-line arguments and create a ZIP archive</span>
+<span class="sd">    based on the provided options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Zip CLI Utility&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;folder&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Folder to zip (default: current directory)&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--filter&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Glob patterns to include (e.g. *.txt *.csv)&quot;</span><span class="p">)</span>
@@ -180,10 +219,6 @@
     </div>
 </search>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../main.html">Main CLI Module</a></li>
-</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>

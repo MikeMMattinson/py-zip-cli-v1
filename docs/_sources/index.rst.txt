@@ -1,20 +1,25 @@
-.. py-zip-cli-v1 documentation master file, created by
-   sphinx-quickstart on Fri Jun 13 07:13:06 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-py-zip-cli-v1 documentation
+py-zip-cli-v1 Documentation
 ===========================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
+A command-line utility for creating date-stamped ZIP archives with flexible file filtering.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   usage
    main
 
+Features
+--------
+- Includes/excludes files via glob patterns
+- Customizable date format for filenames
+- Optional inventory of zipped contents
+- Backup location support
+- Executable build via PyInstaller
 
+Install
+-------
+.. code-block:: bash
+
+   pip install -r requirements.txt

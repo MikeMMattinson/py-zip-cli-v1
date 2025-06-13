@@ -1,5 +1,5 @@
-Main CLI Module
-===============
+Main Module Reference
+=====================
 
 .. automodule:: zipcli.main
    :members:
