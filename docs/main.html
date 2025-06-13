@@ -14,6 +14,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Usage Examples" href="usage.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -42,11 +43,11 @@ Author:     Mike &amp; ChatGPT</p>
 <dt>Example Usage:</dt><dd><p>zip_cli.exe myfolder –filter “.txt” –exclude “secret” –date-format “%Y%m%d” –inventory –backup-location /backups</p>
 </dd>
 <dt>Features:</dt><dd><ul class="simple">
-<li><p>Create ZIP archives with date-stamped filenames</p></li>
-<li><p>Filter files using include/exclude patterns</p></li>
-<li><p>Customizable timestamp formats</p></li>
-<li><p>Optional inventory listing</p></li>
-<li><p>Optional backup location</p></li>
+<li><p>Includes/excludes files via glob patterns</p></li>
+<li><p>Customizable date format for filenames</p></li>
+<li><p>Optional inventory report printed to console <strong>and</strong> saved as a text file</p></li>
+<li><p>Backup location support</p></li>
+<li><p>Executable build via PyInstaller</p></li>
 </ul>
 </dd>
 </dl>
@@ -148,11 +149,23 @@ based on inclusion and exclusion patterns.</p>
     </div>
 </search>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Main Module Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#zipcli.main.collect_files"><code class="docutils literal notranslate"><span class="pre">collect_files()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zipcli.main.create_zip_archive"><code class="docutils literal notranslate"><span class="pre">create_zip_archive()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zipcli.main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zipcli.main.should_include"><code class="docutils literal notranslate"><span class="pre">should_include()</span></code></a></li>
+</ul>
+</li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="usage.html" title="previous chapter">Usage Examples</a></li>
   </ul></li>
 </ul>
 </div>

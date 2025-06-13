@@ -8,6 +8,15 @@ Description:
 ------------
 ZipCLI is a command-line utility that creates ZIP archives from folders with flexible include/exclude filtering. It supports custom date-stamped filenames, inventory listing, and configurable backup locations.
 
+Features
+--------
+- Includes/excludes files via glob patterns
+- Customizable date format for filenames
+- Optional inventory report printed to console **and** saved as a text file
+- Backup location support
+- Executable build via PyInstaller
+
+
 Installation:
 -------------
 No installation required. Just unzip the downloaded file and double-click `zip-cli-v1.0.0.exe` in the folder, or run it from the command line.

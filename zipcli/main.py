@@ -11,15 +11,15 @@ Example Usage:
     zip_cli.exe myfolder --filter ".txt" --exclude "secret" --date-format "%Y%m%d" --inventory --backup-location /backups
 
 Features:
-    - Create ZIP archives with date-stamped filenames
-    - Filter files using include/exclude patterns
-    - Customizable timestamp formats
-    - Optional inventory listing
-    - Optional backup location
+    - Includes/excludes files via glob patterns
+    - Customizable date format for filenames
+    - Optional inventory report printed to console **and** saved as a text file
+    - Backup location support
+    - Executable build via PyInstaller
 """
 
-__version__ = "1.0.0"
-__milestone__ = "v1.0.0"
+__version__ = "1.1.0"
+__milestone__ = "v1.1.0"
 
 import argparse
 import fnmatch
@@ -98,13 +98,19 @@ def create_zip_archive(
     files_to_zip = collect_files(source_dir, includes, excludes)
 
     with zipfile.ZipFile(output_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        inventory_lines = []
         for file_path in files_to_zip:
             arcname = file_path.relative_to(source_dir)
             zf.write(file_path, arcname)
+            inventory_lines.append(f"{arcname}")
             if inventory:
                 print(f"  [✓] {arcname}")
 
-    print(f"\n[✓] Created ZIP: {output_path}")
+    # Write inventory report next to the .zip
+    if inventory:
+        inventory_path = output_path.with_name(output_path.stem + "_inventory.txt")
+        inventory_path.write_text("\n".join(inventory_lines), encoding="utf-8")
+        print(f"[✓] Inventory report saved to: {inventory_path}")
 
 
 def main():
