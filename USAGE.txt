@@ -28,3 +28,6 @@ Examples:
     zip-cli-v1.0.0.exe reports --include "*.pdf" --date-format "%Y-%m-%d" --inventory
 
     zip-cli-v1.0.0.exe logs --filter "*.log" --backup-location P:\Backups
+
+    zip_cli.exe myfolder --filter "*.txt" --exclude "secret*" --date-format "%Y%m%d" --inventory --backup-location /backups --keep 3
+

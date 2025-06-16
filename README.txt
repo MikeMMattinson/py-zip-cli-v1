@@ -2,7 +2,7 @@ ZipCLI - Flexible ZIP Archiver
 ==============================
 
 Version: 1.1.0
-Build Date: 2025-06-13
+Build Date: 2025-06-16
 
 Description:
 ------------
@@ -14,8 +14,13 @@ Features
 - Customizable date format for filenames
 - Optional inventory report printed to console **and** saved as a text file
 - Backup location support
+- **NEW:** --keep [N] option to retain only the N most recent ZIP archives (default is 1)
 - Executable build via PyInstaller
 
+Version history
+---------------
+v1.1.0 - Added --keep [N] option to retain only the most recent N ZIP files and matching inventory reports in the backup location.
+         Older ZIPs and their inventory files are deleted automatically after each run.
 
 Installation:
 -------------
@@ -54,6 +59,8 @@ Examples:
     zip-cli-v1.0.0.exe reports --include "*.pdf" --date-format "%Y-%m-%d" --inventory
 
     zip-cli-v1.0.0.exe logs --filter "*.log" --backup-location P:\Backups
+
+    zip_cli.exe myfolder --filter "*.txt" --exclude "secret*" --date-format "%Y%m%d" --inventory --backup-location /backups --keep 3
 <!-- USAGE_END -->
 
 ZIP Output:
