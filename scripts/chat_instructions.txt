@@ -1,8 +1,21 @@
-# ChatGPT Custom Instructions for py-secure-cli-v1
+# ChatGPT Custom Instructions for py-zip-cli-v1
 # Purpose: Guide ChatGPT to assist with consistent software development, testing, and distribution workflows.
 
 ## 🧠 Background
-This project is a command-line tool written in Python for generating secure passwords using per-account configuration files. The tool supports saving password history, preserving notes, regenerating missing config, and exporting mobile-friendly reports. It is built as a single-file `.exe` using PyInstaller and follows semantic versioning.
+This project is a command-line tool written in Python. It is built as a single-file `.exe` using PyInstaller and follows semantic versioning.
+
+Purpose:
+    Command-line tool to create dated ZIP archives with flexible filters.
+
+Example Usage:
+    zip_cli.exe myfolder --filter ".txt" --exclude "secret" --date-format "%Y%m%d" --inventory --backup-location /backups
+
+Features:
+    - Includes/excludes files via glob patterns
+    - Customizable date format for filenames
+    - Optional inventory report printed to console **and** saved as a text file
+    - Backup location support
+    - Executable build via PyInstaller
 
 ## 🔧 Development Instructions
 - Source files are organized under `/lib/` (main logic), `/config/` (default and per-account config files), and `/scripts/` (build and utility scripts).
@@ -27,7 +40,7 @@ To maintain compatibility with Windows logging and file encodings, do not use em
 ## 🚀 Build & Distribution Instructions
 - Build `.exe` using: python scripts/build_exe.py
 - This uses PyInstaller with `--onefile` mode and includes:
-- the secure CLI script
+- the project's main.py CLI script
 - `default.config`
 - The output is placed in `/dist/secure-cli-vX.Y.Z/`
 - Final `.zip` bundle contains:
@@ -39,12 +52,13 @@ To maintain compatibility with Windows logging and file encodings, do not use em
 - `README.txt` includes project overview and references `USAGE.txt`.
 - `USAGE.txt` is auto-generated from script header and command-line args.
 - ASCII header in report includes version and timestamp.
-- Password file format preserves notes section and appends timestamped password entries.
 
-## 🧪 Testing Notes
-- Password generation must follow config rules: length, character types, exclusion lists, etc.
-- Notes in account password files must be preserved when updating.
-- No extra blank lines should be inserted into the password history section.
+## GITHUB Code Source and Versions
+- Github Repo: https://github.com/MikeMMattinson/py-zip-cli-v1
+- Each feature should be developed in its own branch
+- Each feature should have a version and milestone
+- When the feature/bug is completed, create tag and release in the git Repo
+- In VS Code, the primary terminal: Git Bash
 
 ## 🧭 Prompt Style for Help Requests
 When working on this project, prompt ChatGPT with:
